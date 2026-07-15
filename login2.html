@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  body {
+    background: radial-gradient(circle at top, #1a1a2e, #0d0d0d);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .form-container {
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.25);
+    width: 320px;
+    text-align: center;
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    animation: fadeIn 0.6s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  h2 {
+    color: #fff;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 22px;
+  }
+
+  .input-box {
+    position: relative;
+    margin: 30px 0;
+  }
+
+  .input-box input {
+    width: 100%;
+    padding: 10px 5px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: 0.4s;
+  }
+
+  .input-box input:focus,
+  .input-box input:valid {
+    border-color: #00ffff;
+    box-shadow: 0 4px 10px -6px rgba(0, 255, 255, 0.6);
+  }
+
+  .input-box span {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: 0.4s;
+  }
+
+  .input-box input:focus ~ span,
+  .input-box input:valid ~ span {
+    top: -5px;
+    font-size: 12px;
+    color: #00ffff;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #00ffff, #0080ff);
+    border: none;
+    border-radius: 8px;
+    color: #0d0d0d;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: 0.3s;
+  }
+
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .error-msg {
+    color: #ff5c5c;
+    font-size: 13px;
+    margin-top: 15px;
+    min-height: 16px;
+  }
+
+  .hint {
+    color: rgba(255,255,255,0.35);
+    font-size: 11px;
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="form-container">
+  <h2>Login</h2>
+
+  <form id="loginForm" novalidate>
+    <div class="input-box">
+      <input type="text" id="username" required>
+      <span>Username</span>
+    </div>
+
+    <div class="input-box">
+      <input type="password" id="password" required>
+      <span>Password</span>
+    </div>
+
+    <button type="submit" class="submit-btn">Login</button>
+    <p class="error-msg" id="errorMsg"></p>
+    <p class="hint">Username must be 8 letters</p>
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+  const errorMsg = document.getElementById('errorMsg');
+
+  const CORRECT_PASSWORD = 'yathu2006';
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value;
+
+    // Username must be exactly 8 letters (a-z, A-Z only)
+    const isValidUsername = /^[A-Za-z]{8}$/.test(username);
+
+    if (!isValidUsername) {
+      errorMsg.textContent = 'Username must be exactly 8 letters (no numbers or symbols).';
+      return;
+    }
+
+    if (password !== CORRECT_PASSWORD) {
+      errorMsg.textContent = 'Incorrect password.';
+      return;
+    }
+
+    // Success — redirect to home page
+    errorMsg.style.color = '#00ffff';
+    errorMsg.textContent = 'Login successful! Redirecting...';
+    setTimeout(function () {
+      window.location.href = 'file:///C:/Users/matha/OneDrive/Desktop/home.html';
+    }, 700);
+  });
+</script>
+
+</body>
+</html>
